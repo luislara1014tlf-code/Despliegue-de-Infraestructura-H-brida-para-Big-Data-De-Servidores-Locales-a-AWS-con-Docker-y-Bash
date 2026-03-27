@@ -1,0 +1,47 @@
+#  Proyecto de Infraestructura Híbrida y Big Data Lab
+
+Este repositorio contiene la documentación y scripts de mi entrenamiento intensivo en administración de servidores, despliegue en la nube y contenedores. El proyecto simula un entorno real de Big Data desde la base local hasta la automatización en AWS.
+
+## Tecnologías Utilizadas
+* **Sistemas Operativos:** Rocky Linux 9 (Minimal), Amazon Linux 2023.
+* **Virtualización:** Oracle VirtualBox 7.0.
+* **Nube:** Amazon Web Services (AWS EC2).
+* **Contenedores:** Docker (Nginx, MariaDB).
+* **Lenguajes:** Bash Scripting.
+* **Seguridad:** SSH (RSA Key Exchange), Security Groups (AWS Firewall).
+
+##  Fases del Proyecto
+
+### Fase 1: El Home Lab (Cimientos)
+Configuración de una máquina virtual maestra en una Dell Latitude (i5/8GB RAM) optimizando recursos.
+* Instalación de Rocky Linux 9.
+* Configuración de adaptadores de red duales (NAT + Host-Only).
+* Acceso remoto seguro vía SSH.
+
+### Fase 2: Simulación de Cluster Big Data
+Escalamiento horizontal mediante la clonación enlazada de nodos.
+* Creación de un cluster de 3 nodos: `Master`, `Worker1`, `Worker2`.
+* Configuración de IPs estáticas virtuales y resolución de hostnames.
+* **Intercambio de llaves RSA:** Comunicación "passwordless" entre nodos (Requisito para Hadoop/Spark).
+
+### Fase 3: El Salto a la Nube (AWS)
+Migración de servicios locales a una infraestructura profesional en la nube.
+* Aprovisionamiento de instancia EC2.
+* Configuración de Security Groups (Puertos 22, 80, 443).
+* Gestión de llaves `.pem` para acceso seguro.
+
+### Fase 4: Modernización con Docker
+Implementación de microservicios para evitar la "contaminación" del sistema operativo.
+* Instalación del motor Docker en AWS.
+* Despliegue de contenedores aislados de Nginx (Web) y MariaDB (Database).
+* Mapeo de puertos para exposición de servicios.
+
+### Fase 5: Automatización y Backup (Bash)
+Desarrollo de scripts para la resiliencia de datos.
+* Script de automatización en Bash para respaldos comprimidos (`.tar.gz`).
+* Transferencia segura de datos Laptop-to-Cloud mediante SCP.
+
+##  Script de Backup Destacado
+```bash
+# Ejemplo del script desarrollado para backups automatizados
+tar -czvf /home/ec2-user/backups/respaldo_$(date +%Y-%m-%d).tar.gz /home/ec2-user/*.sh
